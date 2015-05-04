@@ -362,7 +362,9 @@ class DevopsDriver(object):
         logger.info(xml)
         domain = self.conn.lookupByUUIDString(node.uuid)
         logger.info(domain.state(0))
+        domain.fsFreeze()
         domain.snapshotCreateXML(xml, 0)
+        domain.fsThaw()
         logger.info(domain.state(0))
 
     def _get_snapshot(self, domain, name):
